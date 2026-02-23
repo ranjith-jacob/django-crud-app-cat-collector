@@ -26,10 +26,10 @@
 </section>
 
 <section class="card-container">
-  {% for cat in cats %}
+  {% for cat in cat_list %}
     <div class="card">
       <!-- <a href="/cats/{{ cat.id }}"> -->
-      <a href="{% url 'cat-detail' cat.id %}"></a> <!-- dynamically loading url, i.e. not hardcoding the url, in templates for better flexibility, so that url changes need to be made only in urls.py -->  
+      <a href="{% url 'cat-detail' cat.id %}"> <!-- dynamically loading url, i.e. not hardcoding the url, in templates for better flexibility, so that url changes need to be made only in urls.py -->  
         <div class="card-content">
           <div class="card-img-container">
             <img

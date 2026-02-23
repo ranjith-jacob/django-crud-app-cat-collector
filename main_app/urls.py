@@ -5,7 +5,13 @@ urlpatterns = [
     # Routes will be added here
     path('', views.home, name='home'),
     path("about/", views.about, name="about"),
-    path('cats/', views.cat_index, name='cat-index'),
+    # path('cats/', views.cat_index, name='cat-index'),
+    path('cats/', views.CatList.as_view(), name='cat-index'),
     # new route below
-    path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
+    # path('cats/<int:cat_id>/', views.cat_detail, name='cat-detail'),
+    # path('cats/<int:cat_id>/', views.CatDetail.as_view(), name='cat-detail'),
+    path('cats/<int:pk>/', views.CatDetail.as_view(), name='cat-detail'),
+    path('cats/create/', views.CatCreate.as_view(), name='cat-create'),
+    path('cats/<int:pk>/update/', views.CatUpdate.as_view(), name='cat-update'),
+    path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cat-delete'),
 ]
