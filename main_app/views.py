@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 #!tangent from Canvas notes
 from django.urls import reverse_lazy
 
-from .models import Cat
+from .models import Cat, Toy
 from .forms import FeedingForm
 
 # Create your views here.
@@ -78,11 +78,30 @@ class CatDelete(DeleteView):
 def add_feeding(request, pk):
     form = FeedingForm(request.POST)
     if form.is_valid():
-        new_feeding = form.save(commit=False)
+        new_feeding = form.save(commit=False) # Save the form but don't commit it yet to the database
         new_feeding.cat_id = pk
         new_feeding.save()
-        
+
     return redirect("cat-detail", pk=pk)
+
+class ToyCreate(CreateView):
+    model = Toy
+    fields = '__all__'
+
+class ToyList(ListView):
+    model = Toy
+
+class ToyDetail(DetailView):
+    model = Toy
+
+class ToyUpdate(UpdateView):
+    model = Toy
+    fields = ['name', 'color']
+
+class ToyDelete(DeleteView):
+    model = Toy
+    success_url = reverse_lazy('toy-index')
+
 
 
 

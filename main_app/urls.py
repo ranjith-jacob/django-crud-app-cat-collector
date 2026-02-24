@@ -20,4 +20,9 @@ urlpatterns = [
         views.add_feeding, 
         name='add-feeding'
     ),
+    path('toys/create/', views.ToyCreate.as_view(), name='toy-create'),
+    path('toys/', views.ToyList.as_view(), name='toy-index'),
+    path('toys/<int:pk>/', views.ToyDetail.as_view(), name='toy-detail'),
+    path('toys/<int:pk>/update/', views.ToyUpdate.as_view(), name='toy-update'),
+    path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toy-delete'),
 ]
