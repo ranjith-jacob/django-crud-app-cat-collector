@@ -54,13 +54,18 @@ class CatDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(context)
+        print("CONTEXT:", context)
+        # toys = Toy.objects.all()
+        # toys_cat_doesnt_have = Toy.objects.exclude(id__in = cat.toys.all().values_list('id'))
+        toys_cat_doesnt_have = Toy.objects.exclude(id__in = self.object.toys.all().values_list('id'))
         context["feeding_form"] = FeedingForm()
+        # context['toys'] = toys
+        context['toys'] = toys_cat_doesnt_have
         return context
 
 class CatCreate(CreateView):
     model = Cat
-    fields = '__all__'
+    fields = ['name', 'breed', 'description', 'age']
     # success_url = '/cats/'
     #! below is tangent from Canvas notes; commented out after https://pages.git.generalassemb.ly/modular-curriculum-all-courses/django-crud-app-cat-collector/django-class-based-views/#redirecting-to-a-newly-created-cat-object
     # success_url = reverse_lazy('cat-index')
@@ -101,6 +106,25 @@ class ToyUpdate(UpdateView):
 class ToyDelete(DeleteView):
     model = Toy
     success_url = reverse_lazy('toy-index')
+
+def associate_toy(request, cat_id, toy_id):
+    # Note that you can pass a toy's id instead of the whole object
+    Cat.objects.get(id=cat_id).toys.add(toy_id)
+    # return redirect('cat-detail', cat_id=cat_id)
+    return redirect('cat-detail', pk=cat_id)
+
+def remove_toy(request, cat_id, toy_id):
+    # Look up the cat
+    # Cat.objects.get(id=cat_id).toys.remove(toy_id)
+    # Also rewrite above as:
+    cat = Cat.objects.get(id=cat_id)
+    cat.toys.remove(toy_id)
+    # Look up the toy
+    # Remove the toy from the cat
+    # return redirect('cat-detail', cat_id=cat.id)
+    # return redirect('cat-detail', pk=cat.id)
+    return redirect('cat-detail', pk=cat_id)
+
 
 
 
