@@ -3,7 +3,8 @@ from . import views # Import views to connect routes to view functions
 
 urlpatterns = [
     # Routes will be added here
-    path('', views.home, name='home'),
+    # path('', views.home, name='home'),
+    path('', views.Home.as_view(), name='home'),
     path("about/", views.about, name="about"),
     # path('cats/', views.cat_index, name='cat-index'),
     path('cats/', views.CatList.as_view(), name='cat-index'),
@@ -16,7 +17,7 @@ urlpatterns = [
     path('cats/<int:pk>/delete/', views.CatDelete.as_view(), name='cat-delete'),
     path(
         # 'cats/<int:cat_id>/add-feeding/',
-        'cats/<int:pk>/add-feeding/', 
+        'cats/<int:pk>/add-feeding/',
         views.add_feeding, 
         name='add-feeding'
     ),
@@ -28,6 +29,8 @@ urlpatterns = [
     # New URL to associate a toy with a cat
     path('cats/<int:cat_id>/associate-toy/<int:toy_id>/', views.associate_toy, name='associate-toy'),
     path('cats/<int:cat_id>/remove-toy/<int:toy_id>/', views.remove_toy, name='remove-toy'),
+    path('accounts/signup/', views.signup, name='signup'),
+
 
 
 ]
