@@ -10,7 +10,11 @@ class FeedingForm(forms.ModelForm):
         widgets = {
             'date': forms.DateInput(
                 attrs = {
-                    'type': 'date'
+                    # 'type': 'date'
+                    # To hide the non-JS datepicker, replace above with:
+                    type: "text",
+                    "placeholder": "YYYY-MM-DD",
+                    "class": "datepicker"
                 }
             )
         }
